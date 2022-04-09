@@ -16,7 +16,7 @@
   
   .top-row-data {
     position: sticky;
-    overflow: hidden;
+    overflow: scroll;
     flex-wrap: wrap;
     z-index: 5;
     h5 {

@@ -1,5 +1,5 @@
 #dashboard-view {
-    overflow-y: hidden;
+    overflow-y: scroll;
     overflow-x: hidden;
     height: 100vh;
     .ohm-card {
@@ -11,7 +11,7 @@
   
   .top-row-data {
     position: sticky;
-    overflow: hidden;
+    overflow: scroll;
     flex-wrap: wrap;
     z-index: 5;
     h5 {

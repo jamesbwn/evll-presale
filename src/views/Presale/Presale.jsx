@@ -207,6 +207,7 @@ function Presale() {
           }
         </Grid>
       </Paper>
+      <div style={{marginBottom: "70px"}} />
     </div>
   );
 }
