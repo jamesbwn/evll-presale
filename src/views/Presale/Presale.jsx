@@ -49,9 +49,10 @@ function Presale() {
   //   return state.account.presale && state.account.presale.isWhiteList;
   // });
 
-  const minETHLimit = useSelector(state => {
-    return state.app.minETHLimit;
+  const fixedETHLimit = useSelector(state => {
+    return state.app.fixedETHLimit;
   });
+  console.log('debug fix eth', fixedETHLimit, typeof(fixedETHLimit))
   const tokensRemain = useSelector(state => {
     return state.app.totalTokenAmount
   }); 
@@ -76,24 +77,24 @@ function Presale() {
 
   const onChangeDeposit = async action => {
     // eslint-disable-next-line no-restricted-globals
-    if (isNaN(quantity) || quantity === 0 || quantity === "") {
+    if (isNaN(fixedETHLimit) || fixedETHLimit === 0 || fixedETHLimit === "") {
       // eslint-disable-next-line no-alert
-      return dispatch(error("Please enter a value!"));
+      return dispatch(error("app is loading"));
     }
 
     // 1st catch if quantity > balance
-    let gweiValue = ethers.utils.parseUnits(quantity, "ether");
+    let gweiValue = ethers.utils.parseUnits(fixedETHLimit.toString(), "ether");
     if (action === "presale" && gweiValue.gt(ethers.utils.parseUnits(ethBalance, "ether"))) {
-      return dispatch(error("You cannot deposit more than your BNB balance."));
+      return dispatch(error("Your BNB balance is not enough, 0.5BNB at lease!"));
     }
-    await dispatch(changeDeposit({ address, action, value: quantity.toString(), provider, networkID: chainID }));
+    await dispatch(changeDeposit({ address, action, value: fixedETHLimit.toString(), provider, networkID: chainID }));
   };
 
   return (
     <div id="dashboard-view">
       <div className="presale-header">
         <h1>PrivateSale</h1>
-        <p>Private sale ended, EVLL can be claimed on launch!</p>
+        <p>Private sale open and whitelist is needed to buy. EVLL can be claimed on launch!</p>
       </div>
       <Paper className="ref-card">
         <img src={gif} style={{width: "100%", height: "auto", borderRadius: "24px"}} />
@@ -118,7 +119,7 @@ function Presale() {
             </Grid>
           } */}
           
-          {1 > 0 ? 
+          {isPresaleOpen ? 
           <Grid item>
             <div className="stake-top-metrics" style={{ whiteSpace: "normal" }}>
               <Box alignItems="center" justifyContent="center" flexDirection="column" display="flex">
@@ -135,15 +136,18 @@ function Presale() {
                       </div>
                       <div className="stake-top-metrics data-row-centered" style={{marginBottom: "12px"}}>
                         <Typography className="presale-items"><span style={{color: "#11d59e"}}>Fixed Buy BNB </span></Typography>
-                        <Typography className="presale-items"style={{marginLeft: "16px"}}>{Number.parseFloat(minETHLimit).toFixed(1)}</Typography>
+                        <Typography className="presale-items"style={{marginLeft: "16px"}}>{Number.parseFloat(fixedETHLimit).toFixed(1)} BNB</Typography>
                       </div>
-
-                      <Box alignItems="center" justifyContent="center" flexDirection="column" display="flex" style={{marginBottom: "16px", marginTop: "4px"}}>
+                      <div className="stake-top-metrics data-row-centered" style={{marginBottom: "12px"}}>
+                        <Typography className="presale-items"><span style={{color: "#11d59e"}}>You will get </span></Typography>
+                        <Typography className="presale-items"style={{marginLeft: "16px"}}>{Number.parseFloat(fixedETHLimit * rate).toFixed(1)} EVLL</Typography>
+                      </div>
+                      {/* <Box alignItems="center" justifyContent="center" flexDirection="column" display="flex" style={{marginBottom: "16px", marginTop: "4px"}}>
                           <Typography >Enter Amount in BNB</Typography>
-                      </Box>
+                      </Box> */}
                       <Box item xs={12} sm={6} md={6} lg={6}>
                         <FormControl className="ohm-input" variant="outlined" color="primary">
-                          <InputLabel htmlFor="amount-input"></InputLabel>
+                          {/* <InputLabel htmlFor="amount-input"></InputLabel>
                           <OutlinedInput
                             id="amount-input"
                             type="number"
@@ -163,7 +167,7 @@ function Presale() {
                           />
                         <Box alignItems="center" justifyContent="center" flexDirection="column" display="flex" style={{marginBottom: "16px"}}>
                           <Typography style={{marginTop: "16px"}}>You will get { rate? quantity * rate : ''} EVLL</Typography>
-                        </Box>
+                        </Box> */}
                         <Box alignItems="center" justifyContent="center" flexDirection="column" display="flex">
                           {/* <Typography style={{marginTop: "16px"}}>1 EVLL = {rate} BUSD</Typography>
                           <Typography style={{marginTop: "16px"}}>Enter Amount in BUSD</Typography> */}

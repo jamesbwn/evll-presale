@@ -21,17 +21,16 @@ export const loadAppDetails = createAsyncThunk(
       PresaleContract,
       provider,
     );
-    const bhdContract = new ethers.Contract(addresses[networkID].BPT_ADDRESS as string, ierc20Abi, provider);
-    const tokenBalance = await bhdContract.balanceOf(addresses[networkID].PRESALE_ADDRESS);
+    const evllContract = new ethers.Contract(addresses[networkID].EVLL_ADDRESS as string, ierc20Abi, provider);
+    const tokenBalance = await evllContract.balanceOf(addresses[networkID].PRESALE_ADDRESS);
     const totalTokenAmount = ethers.utils.formatEther(tokenBalance);
     // console.log("debug tokenbalance", tokenBalance, typeof(tokenBalance));
     // const percentReleased = await presaleContract.getPercentReleased();
     // const isList = await presaleContract.isList();
     const isPresaleOpen = await presaleContract.isSaleActive();
     const isClaimOpen = await presaleContract.isClaimActive();
-    const maxETHLimit = await presaleContract.maxBuyETHAmount();
-    let minETHLimit = await presaleContract.minBuyETHAmount();
-    minETHLimit = ethers.utils.formatEther(minETHLimit);
+    let fixedETHLimit = await presaleContract.fixedBuyETHAmount();
+    fixedETHLimit = ethers.utils.formatEther(fixedETHLimit);
     const rate = await presaleContract.tokenPerBNB();
     // const rate_decimals = await presaleContract.RATE_DECIMALS();
     // const price = rate_decimals / rate;
@@ -42,8 +41,7 @@ export const loadAppDetails = createAsyncThunk(
       // isList,
       isPresaleOpen,
       isClaimOpen,
-      maxETHLimit,
-      minETHLimit,
+      fixedETHLimit,
       rate,
       totalTokenSold,
       totalTokenAmount,
@@ -56,8 +54,7 @@ interface IPresaleData {
   // readonly isList: boolean;
   readonly isPresaleOpen: boolean;
   readonly isClaimOpen: boolean;
-  readonly maxETHLimit: number;
-  readonly minETHLimit: number;
+  readonly fixedETHLimit: number;
   readonly rate: number;
   readonly totalTokenSold: number;
   readonly totalTokenAmount: string;

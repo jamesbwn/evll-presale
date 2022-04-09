@@ -54,7 +54,7 @@ export const loadAccountDetails = createAsyncThunk(
     const bhdContract = new ethers.Contract(addresses[networkID].TOKEN_ADDRESS as string, ierc20Abi, provider);
     bhdBalance = await bhdContract.balanceOf(address);
 
-    const bptContract = new ethers.Contract(addresses[networkID].BPT_ADDRESS as string, ierc20Abi, provider);
+    const bptContract = new ethers.Contract(addresses[networkID].EVLL_ADDRESS as string, ierc20Abi, provider);
     bptBalance = await bptContract.balanceOf(address);
 
     const presaleContract = new ethers.Contract(

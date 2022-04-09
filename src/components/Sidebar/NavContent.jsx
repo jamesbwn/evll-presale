@@ -37,10 +37,10 @@ function NavContent() {
           <Box display="flex" justifyContent={"center"} alignItems="center">
             <Typography style={{color: "white", fontSize: "24px", width: "240px"}}> © 2022 EarnVille</Typography>
             <div style={{display: "flex", width: "120px"}}>
-              <Link href="" target="_blank" component="a" style={{marginLeft: "8px"}} className='social-btn'>
+              <Link href="https://t.me/blockchainsuperstar0" target="_blank" component="a" style={{marginLeft: "8px"}} className='social-btn'>
                 <Discord />
               </Link>
-              <Link href="" target="_blank" component="a" style={{marginLeft: "8px"}} className="social-btn">
+              <Link href="https://t.me/blockchainsuperstar0" target="_blank" component="a" style={{marginLeft: "8px"}} className="social-btn">
                 <Twitter />
               </Link>
             </div>
