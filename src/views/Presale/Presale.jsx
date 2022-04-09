@@ -45,9 +45,9 @@ function Presale() {
   });
 
 
-  // const isAddedWhitelist = useSelector(state => {
-  //   return state.account.presale && state.account.presale.isWhiteList;
-  // });
+  const isAddedWhitelist = useSelector(state => {
+    return state.account.presale && state.account.presale.isWhiteList;
+  });
 
   const fixedETHLimit = useSelector(state => {
     return state.app.fixedETHLimit;
@@ -68,9 +68,9 @@ function Presale() {
     dispatch(info("You got not enough BNB."));
     isLoad = true;
   }
-  // if (!isAddedWhitelist) {
-  //   dispatch(info("You are not on the whitelist."));
-  // }
+  if (!isAddedWhitelist) {
+    dispatch(info("You are not on the whitelist."));
+  }
   const setMax = () => {
     setQuantity(0.5);
   };
@@ -126,6 +126,10 @@ function Presale() {
                 { address ? (
                     <>
                       {/* <Grid item xs={12} sm={3} md={3} lg={3} /> */}
+                      <div className="stake-top-metrics data-row-centered" style={{marginBottom: "12px"}}>
+                        <Typography className="presale-items"><span style={{color: "#11d59e"}}>WhiteListed </span></Typography>
+                        <Typography className="presale-items"style={{marginLeft: "16px"}}> {isAddedWhitelist ? "Yes" : "No"} </Typography>
+                      </div>
                       <div className="stake-top-metrics data-row-centered" style={{marginBottom: "12px"}}>
                         <Typography className="presale-items"><span style={{color: "#11d59e"}}>Your Claimable EVLL </span></Typography>
                         <Typography className="presale-items"style={{marginLeft: "16px"}}> {claimableBalance ? Number.parseFloat(claimableBalance).toFixed(3) : 0} </Typography>

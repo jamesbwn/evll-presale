@@ -42,7 +42,7 @@ export const loadAccountDetails = createAsyncThunk(
     let claimableAmount = 0;
     // let totalPurchasedAmount = 0;
     // let claimedAmount = 0;
-    // let isAddedWhitelist = false;
+    let isAddedWhitelist = false;
     let bptBalance = 0;
     let bnbBalance;
 
@@ -70,7 +70,7 @@ export const loadAccountDetails = createAsyncThunk(
     if (addresses[networkID].TOKEN_ADDRESS) {
       claimAllowance = await bhdContract.allowance(address, addresses[networkID].PRESALE_ADDRESS);
     }
-    // isAddedWhitelist = await presaleContract.whiteListed(address);
+    isAddedWhitelist = await presaleContract.whiteListed(address);
 
     claimableAmount = await presaleContract.tokensUnclaimed(address);
     // totalPurchasedAmount = (await presaleContract.preBuys(address)).busdAmount;
@@ -84,7 +84,7 @@ export const loadAccountDetails = createAsyncThunk(
       },
       presale: {
         presaleAllowance: +presaleAllowance,
-        // isWhiteList: isAddedWhitelist,
+        isWhiteList: isAddedWhitelist,
       },
       claim: {
         claimAllowance: +claimAllowance,
