@@ -140,7 +140,7 @@ function Presale() {
                       </div>
                       <div className="stake-top-metrics data-row-centered" style={{marginBottom: "12px"}}>
                         <Typography className="presale-items"><span style={{color: "#11d59e"}}>Fixed Buy BNB </span></Typography>
-                        <Typography className="presale-items"style={{marginLeft: "16px"}}>{Number.parseFloat(fixedETHLimit).toFixed(1)} BNB</Typography>
+                        <Typography className="presale-items"style={{marginLeft: "16px"}}>{Number.parseFloat(fixedETHLimit).toFixed(2)} BNB</Typography>
                       </div>
                       <div className="stake-top-metrics data-row-centered" style={{marginBottom: "12px"}}>
                         <Typography className="presale-items"><span style={{color: "#11d59e"}}>You will get </span></Typography>
